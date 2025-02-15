@@ -11,14 +11,14 @@ namespace WebApplication1.Controllers
 {
     public class ValuesController : ApiController
     {
-        //Endpoint http://localhost:58922/api/values
+        //Endpoint http://localhost:58922/api/values - does not throw SO exception
         public async Task<string> Get()
         {
             return await CallMethod().ConfigureAwait(false);
             
         }
 
-        //Endpoint http://localhost:58922/2
+        //Endpoint http://localhost:58922/2 - This one throws stackoverflow exception
         [HttpGet]
         [Route("2")]
         public async Task<string> Get2()
