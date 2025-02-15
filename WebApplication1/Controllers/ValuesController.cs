@@ -11,10 +11,19 @@ namespace WebApplication1.Controllers
 {
     public class ValuesController : ApiController
     {
+        //Endpoint http://localhost:58922/api/values
         public async Task<string> Get()
         {
             return await CallMethod().ConfigureAwait(false);
             
+        }
+
+        //Endpoint http://localhost:58922/2
+        [HttpGet]
+        [Route("2")]
+        public async Task<string> Get2()
+        {
+            return await CallMethod2().ConfigureAwait(false);
         }
 
         async Task<string> CallMethod()
@@ -37,11 +46,5 @@ namespace WebApplication1.Controllers
             return await Task.FromResult("value");
         }
 
-        [HttpGet]
-        [Route("2")]
-        public async Task<string> Get2()
-        {
-            return await CallMethod2().ConfigureAwait(false);
-        }
     }
 }
