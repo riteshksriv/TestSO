@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,30 +13,35 @@ namespace WebApplication1.Controllers
     {
         public async Task<string> Get()
         {
+            return await CallMethod().ConfigureAwait(false);
+            
+        }
+
+        async Task<string> CallMethod()
+        {
             Service2 service2 = new Service2();
-            await service2.Method1().ConfigureAwait(false);
+            bool b = true;
+            await service2.Method1().ConfigureAwait(b);
             Service service = new Service();
             await service.Method1().ConfigureAwait(false);
             return await Task.FromResult("value");
         }
 
-        async Task NoOp()
+        async Task<string> CallMethod2()
         {
-            await Task.Delay(1000);
+            Service2 service2 = new Service2();
+            bool b = false;
+            await service2.Method1().ConfigureAwait(b);
+            Service service = new Service();
+            await service.Method1().ConfigureAwait(false);
+            return await Task.FromResult("value");
         }
 
-        async Task AnotherMethod()
+        [HttpGet]
+        [Route("2")]
+        public async Task<string> Get2()
         {
-            Request.Properties["test1"] = "Name";
-            await Task.Delay(1000).ConfigureAwait(false);
-            await MethodThrowsException().ConfigureAwait(false);
-            Request.Properties["test"] = "Name";
-        }
-
-        async Task<string> MethodThrowsException()
-        {
-            await Task.Delay(1000).ConfigureAwait(false);
-            throw new ArgumentNullException("Exception thrown from async method");
+            return await CallMethod2().ConfigureAwait(false);
         }
     }
 }
