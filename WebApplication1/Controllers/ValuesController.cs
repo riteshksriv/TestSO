@@ -26,7 +26,9 @@ namespace WebApplication1.Controllers
             return await CallMethod2().ConfigureAwait(false);
         }
 
-        async Task<string> CallMethod()
+        [HttpGet]
+        [Route("3")]
+        public async Task<string> CallMethod()
         {
             Service2 service2 = new Service2();
             bool b = true;
@@ -36,7 +38,10 @@ namespace WebApplication1.Controllers
             return await Task.FromResult("value");
         }
 
-        async Task<string> CallMethod2()
+
+        [HttpGet]
+        [Route("4")]
+        public async Task<string> CallMethod2()
         {
             Service2 service2 = new Service2();
             bool b = false;
